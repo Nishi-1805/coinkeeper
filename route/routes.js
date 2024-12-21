@@ -1,21 +1,15 @@
 import express from 'express';
 const router = express.Router();
 import * as controllers from '../controllers/app.js';// This imports all named exports as an object
-<<<<<<< HEAD
 import authenticateToken from '../middleware/authenticateToken.js';
 
 router.get('/', controllers.getAppPage);
 router.get('/about', controllers.getAboutPage);
-=======
-
-router.get('/', controllers.getAppPage);
->>>>>>> origin/main
 router.get('/currencies', controllers.getCurrencies);
 router.get('/login', controllers.getloginPage);
 router.post('/login', controllers.login);
 router.get('/new-user', controllers.getNewUser );
 router.post('/users', controllers.createUser );
-<<<<<<< HEAD
 router.post('/password/forgotpassword', controllers.forgotPassword);
 router.get('/note', controllers.getNotesPage);
 router.post('/notes',authenticateToken,  controllers.createNote);
@@ -35,7 +29,4 @@ router.get('/download', authenticateToken, controllers.downloadallexpense);
 router.get('/yearly',authenticateToken, controllers.getYearlyExpensePage);
 router.post('/yearly', authenticateToken, controllers.createYearlyExpense);
 router.get('/yearly-summary', authenticateToken, controllers.getYearlyExpenses);
-=======
->>>>>>> origin/main
-
 export default router;// Export the router
