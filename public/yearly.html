@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day-to-Day Expenses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="yearly.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Day-to-Day Expenses</h1>
+            <div class="top-right-icons">
+                <i class="fas fa-cloud" id="onedrive-icon"></i>
+                <i class="fas fa-drive" id="google-drive-icon"></i>
+                <i class="fas fa-search" id="search-icon"></i>
+                <input type="search" id="search-input" placeholder="Search..." style="display: none;">
+                <i class="fa-solid fa-bars" id="more-options-icon"></i>
+                <ul id="more-options-list">
+                    <li><a href="#">Charts</a></li>
+                    <li><a href="#">Need Help</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/note"><i class="fas fa-pencil" style="font-size: 24px;"></i><strong>Notes</strong></a></li>
+                <li><a href="/daily"><i class="fas fa-money-bill-wave"
+                            style="font-size: 24px;"></i><strong>Daily</strong></a></li>
+                <li><a href="/monthly"><i class="fas fa-chart-bar"
+                            style="font-size: 24px;"></i><strong>Monthly</strong></a></li>
+                <li><a href="/yearly" class="active"><i class="fas fa-chart-line"
+                            style="font-size: 24px;"></i><strong>Yearly</strong></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="yearly-expense-container">
+            <div class="year-bar">
+                <button id="prev-year-btn"><i class="fas fa-chevron-left"></i></button>
+                <span id="current-year">2024</span>
+                <button id="next-year-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <section class="yearly-summary-section">
+                <div class="yearly-summary-box">
+                    <h2>Yearly Summary</h2>
+                    <div class="summary-item">
+                        <p>Total Income (Credit)</p>
+                        <p id="total-income">$0.00</p>
+                    </div>
+                    <div class="summary-item">
+                        <p>Total Expense (Debit)</p>
+                        <p id="total-expense">$0.00</p>
+                    </div>
+                    <div class="summary-item">
+                        <p>Balance Left</p>
+                        <p id="balance-left">$0.00</p>
+                    </div>
+                    <div class="summary-item">
+                        <p>Description</p>
+                        <p id="description-detail"></p>
+                    </div>
+                </div>
+            </section>
+            <button id="add-expense-btn" style="display: none;">Add Expense</button>
+        </section>
+        <div id="add-expense-form" style="display: none;">
+            <form>
+                <label for="income">Total Income:</label>
+                <input type="number" id="income" name="income"><br><br>
+                <label for="expense">Total Expense:</label>
+                <input type="number" id="expense" name="expense"><br><br>
+                <label for="balance">Balance Left:</label>
+                <input type="number" id="balance" name="balance"><br><br>
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" placeholder="Description"><br><br>
+                <button id="submit-btn">Add Expense</button>
+            </form>
+        </div>
+    </main>
+    <script>
+        const searchIcon = document.getElementById('search-icon');
+        const searchInput = document.getElementById('search-input');
+        const moreOptionsIcon = document.getElementById('more-options-icon');
+        const moreOptionsList = document.getElementById('more-options-list');
+
+        searchIcon.addEventListener('click', () => {
+            searchInput.style.display = 'block';
+        });
+        moreOptionsIcon.addEventListener('click', () => {
+            moreOptionsList.classList.toggle('show');
+        });
+
+        // Add event listener to document to hide menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!moreOptionsList.contains(e.target) && !moreOptionsIcon.contains(e.target)) {
+                moreOptionsList.classList.remove('show');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+    const currentPage = window.location.pathname; // Get the current page URL
+    const yearlyNavItem = document.querySelector('nav ul li a[href="/yearly"]'); // Select the daily nav item
+
+    // Check if the current page is the daily page
+    if (currentPage === '/yearly') {
+        yearlyNavItem.classList.add('active'); // Add active class if on daily page
+    } else {
+        yearlyNavItem.classList.remove('active'); // Remove active class if on another page
+    }
+});
+
+        const prevYearBtn = document.getElementById('prev-year-btn');
+        const nextYearBtn = document.getElementById('next-year-btn');
+        const currentYearSpan = document.getElementById('current-year');
+
+        let currentYear = 2024; // initialize with a fixed year
+
+        prevYearBtn.addEventListener('click', () => {
+            currentYear--;
+            updateYearDisplay();
+        });
+
+        nextYearBtn.addEventListener('click', () => {
+            currentYear++;
+            updateYearDisplay();
+        });
+
+        function updateYearDisplay() {
+            currentYearSpan.textContent = currentYear.toString();
+        }
+        document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('token');
+  const currency = localStorage.getItem('currency') || 'USD';
+  if (token) {
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+    };
+    const response = await fetch('/api/check-premium', { method: 'GET', headers });
+    const isPremium = await response.json();
+    const addExpenseButton = document.getElementById('add-expense-btn');
+    if (addExpenseButton) {
+      if (isPremium.isPremium) {
+        addExpenseButton.style.display = 'block';
+      } else {
+        addExpenseButton.style.display = 'none';
+      }
+    }
+  } else {
+    const addExpenseButton = document.getElementById('add-expense-btn');
+    if (addExpenseButton) {
+      addExpenseButton.style.display = 'none';
+    }
+  }
+});
+document.getElementById('add-expense-btn').addEventListener('click', () => {
+    document.getElementById('add-expense-form').style.display = 'block';
+    document.addEventListener('click', handleOutsideClick);
+});
+
+function handleOutsideClick(event) {
+    const form = document.getElementById('add-expense-form');
+    if (!form.contains(event.target) && event.target !== document.getElementById('add-expense-btn')) {
+        form.style.display = 'none';
+        document.removeEventListener('click', handleOutsideClick);
+    }
+}
+document.getElementById('submit-btn').addEventListener('click', async (e) => {
+    e.preventDefault();
+    const incomeInput = document.getElementById('income');
+    const expenseInput = document.getElementById('expense');
+    const balanceInput = document.getElementById('balance');
+    const descriptionInput = document.getElementById('description');
+
+    const expenseData = {
+      income: incomeInput.value,
+      expense: expenseInput.value,
+      balance: balanceInput.value,
+      description: descriptionInput.value,
+    };
+
+    try {
+      const token = localStorage.getItem('token');
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      };
+
+      const response = await fetch('/api/yearly', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(expenseData),
+      });
+
+      if (response.ok) {
+        const yearlyExpense = await response.json();
+        console.log(yearlyExpense);
+        document.getElementById('add-expense-form').style.display = 'none';
+
+          // Update the UI with the new totals
+          const selectedCurrency = localStorage.getItem('selectedCurrency') || 'USD'; // Default to 'USD' if not set
+            document.getElementById('total-income').textContent = `${selectedCurrency} ${parseFloat(expenseData.income).toFixed(2)}`;
+            document.getElementById('total-expense').textContent = `${selectedCurrency} ${parseFloat(expenseData.expense).toFixed(2)}`;
+            document.getElementById('balance-left').textContent = `${selectedCurrency} ${parseFloat(expenseData.balance).toFixed(2)}`;
+            document.getElementById('description-detail').textContent = expenseData.description;
+
+              // Reset the form fields
+              incomeInput.value = '';
+            expenseInput.value = '';
+            balanceInput.value = '';
+            descriptionInput.value = '';
+
+      } else {
+        console.error('Error creating yearly expense:', response.status);
+      }
+    } catch (error) {
+      console.error('Error creating yearly expense:', error);
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('token');
+  const selectedCurrency = localStorage.getItem('selectedCurrency') || 'USD'; // Default to 'USD' if not set
+  if (token) {
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+    };
+    const yearlySummaryResponse = await fetch('/api/yearly-summary', { method: 'GET', headers });
+    const yearlySummary = await yearlySummaryResponse.json();
+
+   // Update the HTML elements with the retrieved data
+   document.getElementById('total-income').textContent = `${selectedCurrency} ${parseFloat(yearlySummary.income || 0).toFixed(2)}`;
+        document.getElementById('total-expense').textContent = `${selectedCurrency} ${parseFloat(yearlySummary.expense || 0).toFixed(2)}`;
+        document.getElementById('balance-left').textContent = `${selectedCurrency} ${parseFloat(yearlySummary.balance || 0).toFixed(2)}`;
+        document.getElementById('description-detail').textContent = yearlySummary.description || ''; // Avoid undefined
+    } else {
+        // If the user is not logged in, set the values to zero
+        document.getElementById('total-income').textContent = `${selectedCurrency} 0.00`;
+        document.getElementById('total-expense').textContent = `${selectedCurrency} 0.00`;
+        document.getElementById('balance-left').textContent = `${selectedCurrency} 0.00`;
+    }
+});
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "headers":[
+    {
+      "headers":[{
+        "key": "Access-Control-Allow-Origin",
+        "value": "*"
+      }]
+    }
+  ],
+  "emulators": {
+    "hosting": {
+      "port": 5033
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  }
+}
