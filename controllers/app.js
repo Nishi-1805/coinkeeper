@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 import Razorpay from 'razorpay';
 import dotenv from 'dotenv';
+<<<<<<< HEAD
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { collection, addDoc, doc, getDoc, getFirestore, setDoc, query, where, getDocs, orderBy, limit, startAfter} from 'firebase/firestore'; // Ensure this is imported
 import { db } from '../firebaseconfig.js';
@@ -28,6 +29,12 @@ export const getAboutPage = (req, res) => {
     console.log('Serving About page:', filePath); // Log the file path
     res.sendFile(filePath);
 };
+=======
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
+// Utility to get __dirname in ES modules
+//const __dirname = path.dirname(new URL(import.meta.url).pathname);
+>>>>>>> origin/main
 
 // Export functions using CommonJS syntax
 export const getCurrencies = async (req, res) => {
@@ -60,6 +67,7 @@ export const getCurrencies = async (req, res) => {
 };
 
 export const getAppPage = (req, res) => {
+<<<<<<< HEAD
     res.sendFile(path.join(__dirname, '../public/index.html'));
 };
 
@@ -77,15 +85,42 @@ export const getNotesPage = (req, res) => {
 
 export const getDailyExpensePage = (req, res) => {
     res.sendFile(path.join(__dirname, '../public/daily.html'));
+=======
+    res.sendFile(path.join(__dirname, '../views/currency.html'));
+};
+
+export const getNewUser  = (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/new-user.html'));
+};
+
+export const getloginPage = (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/login.html'));
+};
+
+export const getNotesPage = (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/notes.html'));
+};
+
+export const getDailyExpensePage = (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/daily.html'));
+>>>>>>> origin/main
 };
 
 export const getMonthlyExpensePage = (req, res) => {
     res.cookie('isPremium', req.session.isPremium, { httpOnly: false });
+<<<<<<< HEAD
     res.sendFile(path.join(__dirname, '../public/monthly.html'));
 };
 
 export const getYearlyExpensePage = (req, res) => {
     res.sendFile(path.join(__dirname, '../public/yearly.html'));
+=======
+    res.sendFile(path.join(__dirname, '../views/monthly.html'));
+};
+
+export const getYearlyExpensePage = (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/yearly.html'));
+>>>>>>> origin/main
 };
 
 // Create User Function
@@ -93,12 +128,16 @@ export const createUser  = async (req, res) => {
     try {
         const { email, password, name, purpose, info, account } = req.body;
 
+<<<<<<< HEAD
         const db  = getFirestore();
+=======
+>>>>>>> origin/main
         const auth = getAuth();
         // Create user with Firebase Authentication
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
+<<<<<<< HEAD
         // Save additional user information in Firestore
         const userRef = doc(db, 'users', user.uid); // Replace 'users' with your desired collection name
         await setDoc(userRef, {
@@ -112,6 +151,9 @@ export const createUser  = async (req, res) => {
             createdAt: new Date() // Optional: Add a timestamp
         });
       //  console.log("User  document created in Firestore:", user.uid);
+=======
+        // Optional: Save additional user information in your database here
+>>>>>>> origin/main
 
         res.status(201).json({ message: 'User  added successfully!', uid: user.uid });
     } catch (error) {
@@ -125,12 +167,16 @@ export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
+<<<<<<< HEAD
         const db  = getFirestore();
+=======
+>>>>>>> origin/main
         const auth = getAuth();
         // Sign in with Firebase Authentication
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
+<<<<<<< HEAD
         const token = jwt.sign({ userId: user.uid }, process.env.JWT_SECRET, { expiresIn: '1h', algorithm: 'HS256' });
         console.log('Generated Token:', token); 
 
@@ -779,3 +825,11 @@ export const downloadallexpense = async (req, res) => {
         res.status(500).json({ error: 'Failed to download expenses', details: err.message });
     }
 };
+=======
+        res.json({ message: 'Login successful!', uid: user.uid });
+    } catch (error) {
+        console.error('Error logging in:', error);
+        res.status(401).json({ message: error.message });
+    }
+};
+>>>>>>> origin/main
