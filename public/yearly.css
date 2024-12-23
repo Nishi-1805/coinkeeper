@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -229,7 +229,8 @@ nav ul li a.active {
   padding: 10px 20px; 
   border: none; 
   cursor: pointer;
-=======
+}
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -438,5 +439,4 @@ nav ul li a.active {
 
 #add-expense-btn:hover {
   background-color: #3e8e41;
->>>>>>> origin/main
 }

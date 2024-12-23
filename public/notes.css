@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -300,7 +300,8 @@ nav ul li a.active {
 
 #previous-link:hover, #next-link:hover {
   text-decoration: underline;
-=======
+}
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -571,5 +572,4 @@ nav ul li a.active {
 
 #previous-link:hover, #next-link:hover {
   text-decoration: underline;
->>>>>>> origin/main
 }
