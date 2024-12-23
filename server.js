@@ -94,9 +94,9 @@
 
 //app.use('/api', routes);
 
-//import crypto from 'crypto';                                                       (do not uncomment) 
-//const secretKey = crypto.randomBytes(32).toString('hex');                            (do not uncomment) 
-//console.log(secretKey);                                                              (do not uncomment) 
+//import crypto from 'crypto';                                                            (do not uncomment) 
+//const secretKey = crypto.randomBytes(32).toString('hex');                               (do not uncomment) 
+//console.log(secretKey);                                                                 (do not uncomment) 
 
 //export const api = functions.https.onRequest(app);
 
