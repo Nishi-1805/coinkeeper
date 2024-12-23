@@ -48,7 +48,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(cors()); 
 
@@ -60,55 +60,55 @@ app.use((req, res, next) => {
 
 // Serve HTML files
 app.get('/', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'index.html');
+    const filePath = path.join(__dirname, '../public', 'index.html');
     console.log('Serving file:', filePath); // Log the file path
     res.sendFile(filePath);
 });
 
 app.get('/new-user', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'new-user.html');
+    const filePath = path.join(__dirname, '../public', 'new-user.html');
     console.log('Serving file:', filePath); // Log the file path
     res.sendFile(filePath);
 });
 
 app.get('/login', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'login.html');
+    const filePath = path.join(__dirname, '../public', 'login.html');
     console.log('Serving file:', filePath); // Log the file path
     res.sendFile(filePath);
 });
 
 app.get('/note', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'notes.html');
+    const filePath = path.join(__dirname, '../public', 'notes.html');
     console.log('Serving file:', filePath); // Log the file path
     res.sendFile(filePath);
 });
 
 app.get('/daily', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'daily.html');
+    const filePath = path.join(__dirname, '../public', 'daily.html');
     console.log('Serving file:', filePath); // Log the file path
     res.sendFile(filePath);
 });
 
 app.get('/monthly', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'monthly.html');
+    const filePath = path.join(__dirname, '../public', 'monthly.html');
     console.log('Serving file:', filePath); // Log the file path
     res.sendFile(filePath);
 });
 
 app.get('/yearly', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'yearly.html');
+    const filePath = path.join(__dirname, '../public', 'yearly.html');
     console.log('Serving file:', filePath); // Log the file path
     res.sendFile(filePath);
 });
 
 app.get('/password/forgotpassword', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'reset_pw.html');
+    const filePath = path.join(__dirname, '../public', 'reset_pw.html');
     console.log('Serving file:', filePath); // Log the file path
     res.sendFile(filePath);
 });
 
 app.get('/about', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'about.html'); // Adjust the path as necessary
+    const filePath = path.join(__dirname, '../public', 'about.html'); // Adjust the path as necessary
     console.log('Serving file:', filePath); // Log the file path
     res.sendFile(filePath);
 });
