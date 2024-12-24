@@ -24,7 +24,7 @@ const jwtSecret = process.env.JWT_SECRET; // Accessing the JWT secret
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 export const getAboutPage = (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'about.html'); // Adjust the path as necessary
+    const filePath = path.join(__dirname, '../public', 'about.html'); // Adjust the path as necessary
     console.log('Serving About page:', filePath); // Log the file path
     res.sendFile(filePath);
 };
