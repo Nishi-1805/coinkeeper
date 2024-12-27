@@ -29,7 +29,7 @@
     ]
   },
   "functions": {
-    "source": "functions", 
+    "source": "functions",
     "ignore": [
       "node_modules",
       ".git",
@@ -37,7 +37,6 @@
       "firebase-debug.*.log",
       "*.local"
     ]
-   
   },
   "emulators": {
     "hosting": {
@@ -46,6 +45,9 @@
     "ui": {
       "enabled": true
     },
-    "singleProjectMode": true
+    "singleProjectMode": true,
+    "functions": {
+      "port": 5001
+    }
   }
 }
