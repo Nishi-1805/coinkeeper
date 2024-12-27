@@ -29,7 +29,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import functions from 'firebase-functions'
 import admin from 'firebase-admin';
-import {firebaseApp, db} from './firebaseconfig.js';
+import {firebaseApp, db} from '../firebaseconfig.js';
 import { collection, addDoc } from 'firebase/firestore';
 import jwt from 'jsonwebtoken'
 import firebase from 'firebase/compat/app';
