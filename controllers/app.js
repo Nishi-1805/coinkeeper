@@ -132,6 +132,9 @@ export const login = async (req, res) => {
         const user = userCredential.user;
 
         const token = jwt.sign({ userId: user.uid }, process.env.JWT_SECRET, { expiresIn: '1h', algorithm: 'HS256' });
+        if (!token) {
+            return res.status(401).json({ message: 'Authorization token is required' });
+        }
         console.log('Generated Token:', token); 
 
        // console.log("User  signed in:", user);
@@ -180,6 +183,9 @@ export const createNote = async (req, res) => {
     console.log('Create Note Function Hit');
     try {
       const token = req.header('Authorization').replace('Bearer ', '');
+      if (!token) {
+        return res.status(401).json({ message: 'Authorization token is required' });
+    }
       console.log('Authorization Header:', req.header('Authorization'));
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const userId = decoded.userId;
@@ -216,6 +222,9 @@ export const createNote = async (req, res) => {
     console.log('Get Notes Function Hit');
     try {
         const token = req.header('Authorization').replace('Bearer ', '');
+        if (!token) {
+            return res.status(401).json({ message: 'Authorization token is required' });
+        }
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decoded.userId;
 
@@ -248,7 +257,7 @@ export const createNote = async (req, res) => {
         });
 
         // Get total count of notes for pagination
-        const totalNotesSnapshot = await getDocs(notesRef);
+        const totalNotesSnapshot = await getDocs(query(notesRef, orderBy('date')));
         const totalNotes = totalNotesSnapshot.size;
         const totalPages = Math.ceil(totalNotes / limitValue);
 

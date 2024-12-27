@@ -12,9 +12,9 @@ const __dirname = path.dirname(__filename);
 //const serviceAccountPath = path.resolve('D:/Git/fir-1-94c78-firebase-adminsdk-5nme9-082a3d3dd7.json');
 
 // Read the service account JSON file
+//const serviceAccountPath = path.resolve('D:/Git/fir-1-94c78-firebase-adminsdk-5nme9-082a3d3dd7.json');
 //const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-
 // Initialize the Firebase Admin SDK
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),

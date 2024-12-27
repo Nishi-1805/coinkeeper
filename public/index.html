@@ -81,6 +81,7 @@
           })
           .catch(error => {
             console.error(error);
+            currencyList.innerHTML = '<li>Error fetching currencies. Please try again.</li>';
           });
       }
     }
