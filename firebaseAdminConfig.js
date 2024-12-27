@@ -1,8 +1,10 @@
 // firebaseAdminConfig.js
 import admin from 'firebase-admin';
+import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+dotenv.config();
 
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
@@ -14,7 +16,7 @@ const __dirname = path.dirname(__filename);
 // Read the service account JSON file
 //const serviceAccountPath = path.resolve('D:/Git/fir-1-94c78-firebase-adminsdk-5nme9-082a3d3dd7.json');
 //const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+const serviceAccount = JSON.parse(process.env.MY_FIREBASE_SERVICE_ACCOUNT);
 // Initialize the Firebase Admin SDK
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
